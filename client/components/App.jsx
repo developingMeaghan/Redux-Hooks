@@ -9,25 +9,36 @@ class App extends React.Component {
             {name: "Jim"},
             {name: "Jim-bob"} 
         ]
-    }
+    };
 
-    changeNameHandler = () => {
+    changeNameHandler = (newName) => {
         this.setState({
             people: [ 
-                {name: "John"},
+                {name: newName},
                 {name: "Johnny"},
                 {name: "Johnny Boy"} 
             ]
         })
-    }
+    };
+
+    changedNameHandler = (e) => {
+        this.setState({
+            people: [ 
+                {name: "Bob"},
+                {name: e.target.value},
+                {name: "Jim-bob"} 
+            ]
+        })
+    };
+
     render(){
         return(
              <Fragment>
 
            <h1>We working!</h1>
-           <button onClick={this.changeNameHandler} >Change Name</button>
+           <button onClick={() => this.changeNameHandler("Jonathan")} >Change Name</button>
            <Greeting name={this.state.people[0].name} />
-           <Greeting click={this.changeNameHandler} name={this.state.people[1].name}>G'day</Greeting>
+           <Greeting changed={this.changedNameHandler} click={this.changeNameHandler.bind(this , "Jono")} name={this.state.people[1].name}>G'day</Greeting>
            <Greeting name={this.state.people[2].name} />
 
 

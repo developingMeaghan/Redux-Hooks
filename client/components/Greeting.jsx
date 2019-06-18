@@ -5,6 +5,7 @@ const Greeting = (props) => {
         <Fragment>
             <p>Howdy {props.name}</p>
             <p onClick={props.click}>{props.children}</p>
+            <input type="text" onChange={props.changed} value={props.name}/>
         </Fragment>
     );
 }
