@@ -4,7 +4,7 @@ const Greeting = (props) => {
     return(
         <Fragment>
             <p>Howdy {props.name}</p>
-            <p>{props.children}</p>
+            <p onClick={props.click}>{props.children}</p>
         </Fragment>
     );
 }
