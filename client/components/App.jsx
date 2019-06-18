@@ -36,7 +36,7 @@ class App extends React.Component {
              <Fragment>
 
            <h1>We working!</h1>
-           <button onClick={() => this.changeNameHandler("Jonathan")} >Change Name</button>
+           <button className="button" onClick={() => this.changeNameHandler("Jonathan")} >Change Name</button>
            <Greeting name={this.state.people[0].name} />
            <Greeting changed={this.changedNameHandler} click={this.changeNameHandler.bind(this , "Jono")} name={this.state.people[1].name}>G'day</Greeting>
            <Greeting name={this.state.people[2].name} />

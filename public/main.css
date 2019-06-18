@@ -1,0 +1,17 @@
+.Greeting {
+    margin: auto;
+    margin-top: 16px;
+    width: 200px;
+    border: 2px solid #eee;
+    box-shadow: 0 2px 2px #ccc;
+    padding: 16px;
+    text-align: center;
+}
+
+.button {
+    background-color: cadetblue;
+    color: white;
+    cursor: pointer;
+    padding: 8px;
+    margin: auto;
+}
