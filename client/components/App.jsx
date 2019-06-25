@@ -30,7 +30,7 @@ class App extends React.Component {
     }
 
     deleteGreeting = (personIndex) => {
-        const people = this.state.people;
+        const people = [...this.state.people]
 
         people.splice(personIndex,1);
         this.setState({people: people})
@@ -56,7 +56,8 @@ class App extends React.Component {
                 {this.state.people.map((person,index) => {
                     return <Greeting 
                     click= {() => this.deleteGreeting(index)}
-                    name={person.name} />
+                    name={person.name} 
+                    key={index} />
                 })}
             </div> );
         };
