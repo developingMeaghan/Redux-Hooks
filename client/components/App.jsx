@@ -8,7 +8,8 @@ class App extends React.Component {
             {name: "Bob"},
             {name: "Jim"},
             {name: "Jim-bob"} 
-        ]
+        ],
+        greet: false,
     };
 
     changeNameHandler = (newName) => {
@@ -21,27 +22,36 @@ class App extends React.Component {
         })
     };
 
-    changedNameHandler = (e) => {
-        this.setState({
-            people: [ 
-                {name: "Bob"},
-                {name: e.target.value},
-                {name: "Jim-bob"} 
-            ]
-        })
-    };
+    // changedNameHandler = (e) => {
+    //     this.setState({
+    //         people: [ 
+    //             {name: "Bob"},
+    //             {name: e.target.value},
+    //             {name: "Jim-bob"} 
+    //         ]
+    //     })
+    // };
+
+    handleGreeting = () => {
+        const showsUp = this.state.greet;
+        this.setState({greet: !showsUp});
+    }
 
     render(){
         return(
              <Fragment>
 
-           <h1>We working!</h1>
-           <button className="button" onClick={() => this.changeNameHandler("Jonathan")} >Change Name</button>
-           <Greeting name={this.state.people[0].name} />
-           <Greeting changed={this.changedNameHandler} click={this.changeNameHandler.bind(this , "Jono")} name={this.state.people[1].name}>G'day</Greeting>
-           <Greeting name={this.state.people[2].name} />
-
-
+                 <h1>It works!</h1>
+                <button className="button" onClick={this.handleGreeting} >Show Greeting</button>
+                {this.state.greet === true ?  
+                    <div>
+                        
+                        <Greeting name={this.state.people[0].name} />
+                        <Greeting changed={this.changedNameHandler} click={this.changeNameHandler.bind(this , "Jono")} name={this.state.people[1].name}>G'day</Greeting>
+                        <Greeting name={this.state.people[2].name} />
+                    </div> : null
+                }
+           
         </Fragment>
         );
     }
