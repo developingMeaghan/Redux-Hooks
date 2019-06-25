@@ -10,17 +10,9 @@ class App extends React.Component {
             {name: "Jim-bob"} 
         ],
         greet: false,
+        clicked: false,
     };
 
-    changeNameHandler = (newName) => {
-        this.setState({
-            people: [ 
-                {name: newName},
-                {name: "Johnny"},
-                {name: "Johnny Boy"} 
-            ]
-        })
-    };
 
     // changedNameHandler = (e) => {
     //     this.setState({
@@ -37,22 +29,54 @@ class App extends React.Component {
         this.setState({greet: !showsUp});
     }
 
-    render(){
-        return(
-             <Fragment>
+    deleteGreeting = (personIndex) => {
+        const people = this.state.people;
 
-                 <h1>It works!</h1>
-                <button className="button" onClick={this.handleGreeting} >Show Greeting</button>
-                {this.state.greet === true ?  
-                    <div>
-                        
-                        <Greeting name={this.state.people[0].name} />
-                        <Greeting changed={this.changedNameHandler} click={this.changeNameHandler.bind(this , "Jono")} name={this.state.people[1].name}>G'day</Greeting>
-                        <Greeting name={this.state.people[2].name} />
-                    </div> : null
-                }
-           
-        </Fragment>
+        people.splice(personIndex,1);
+        this.setState({people: people})
+    }
+
+    handleCicked = () => {
+        const appears = this.state.clicked;
+        this.setState({clicked: !appears});
+      }
+    
+    handleUnClicked = () => {
+        const poof = this.state.clicked;
+        this.setState({clicked: !poof});
+      }
+     
+    render(){
+    
+        let people = null;
+        
+        if (this.state.greet) {
+            people = (
+            <div>
+                {this.state.people.map((person,index) => {
+                    return <Greeting 
+                    click= {() => this.deleteGreeting(index)}
+                    name={person.name} />
+                })}
+            </div> );
+        };
+        
+        const clicked = this.state.clicked;
+        let button;
+
+        if (clicked) {
+            button = <button className="button" onClick={()=>{ this.handleGreeting(); this.handleUnClicked() }} >Goodbye</button>;
+          } else {
+            button = <button className="button" onClick={()=>{ this.handleGreeting(); this.handleCicked() }} >Show Greeting</button>;
+          }
+
+        return(
+            <Fragment>
+
+                <h1>It works!</h1>
+                {button}
+                {people}
+            </Fragment>
         );
     }
 }
