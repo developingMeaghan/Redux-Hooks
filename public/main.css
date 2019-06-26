@@ -1,17 +1,34 @@
 .Greeting {
     margin: auto;
     margin-top: 16px;
-    width: 200px;
+    width: 60%;
     border: 2px solid #eee;
     box-shadow: 0 2px 2px #ccc;
     padding: 16px;
     text-align: center;
 }
 
-.button {
+.buttonOn {
     background-color: cadetblue;
     color: white;
     cursor: pointer;
     padding: 8px;
     margin: auto;
+}
+
+.buttonOff {
+    background-color: palevioletred;
+    color: white;
+    cursor: pointer;
+    padding: 8px;
+    margin: auto;
+}
+
+.purple {
+    color: plum;
+}
+
+.attn {
+    font-weight: bold;
+    font-style: italic;
 }

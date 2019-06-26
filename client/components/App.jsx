@@ -1,53 +1,55 @@
 import React , { Fragment } from "react";
-import Greeting from "./Greeting"
+import Greeting from "./Greeting";
+import Radium from "radium";
 
 
 class App extends React.Component {
     state = {
             people: [ 
-            {name: "Bob"},
-            {name: "Jim"},
-            {name: "Jim-bob"} 
+            {id: "12",name: "Bob"},
+            {id: "13",name: "Jim"},
+            {id: "14",name: "Jim-bob"} 
         ],
         greet: false,
         clicked: false,
     };
 
 
-    // changedNameHandler = (e) => {
-    //     this.setState({
-    //         people: [ 
-    //             {name: "Bob"},
-    //             {name: e.target.value},
-    //             {name: "Jim-bob"} 
-    //         ]
-    //     })
-    // };
+    changedNameHandler = (e, id) => {
+        const peopleI = this.state.people.findIndex(p =>{
+            return p.id === id;
+        });
+
+        const person = {
+            ...this.state.people[peopleI]
+        };
+
+        person.name = e.target.value;
+        const people = [...this.state.people];
+        people[peopleI] = person;
+
+        this.setState({people: people})
+    };
 
     handleGreeting = () => {
         const showsUp = this.state.greet;
         this.setState({greet: !showsUp});
-    }
+    };
 
     deleteGreeting = (personIndex) => {
         const people = [...this.state.people]
 
         people.splice(personIndex,1);
-        this.setState({people: people})
-    }
+        this.setState({people: people});
+    };
 
-    handleCicked = () => {
-        const appears = this.state.clicked;
-        this.setState({clicked: !appears});
-      }
+    handleClicked = () => {
+        const visibility = this.state.clicked;
+        this.setState({clicked: !visibility});
+      };
     
-    handleUnClicked = () => {
-        const poof = this.state.clicked;
-        this.setState({clicked: !poof});
-      }
-     
     render(){
-    
+        
         let people = null;
         
         if (this.state.greet) {
@@ -57,7 +59,8 @@ class App extends React.Component {
                     return <Greeting 
                     click= {() => this.deleteGreeting(index)}
                     name={person.name} 
-                    key={index} />
+                    key={person.id}
+                    changed={(e) => this.changedNameHandler(e, person.id)} />
                 })}
             </div> );
         };
@@ -66,15 +69,25 @@ class App extends React.Component {
         let button;
 
         if (clicked) {
-            button = <button className="button" onClick={()=>{ this.handleGreeting(); this.handleUnClicked() }} >Goodbye</button>;
+            button = <button className="buttonOff" onClick={()=>{ this.handleGreeting(); this.handleClicked() }} >Goodbye</button>;
           } else {
-            button = <button className="button" onClick={()=>{ this.handleGreeting(); this.handleCicked() }} >Show Greeting</button>;
+            button = <button className="buttonOn" onClick={()=>{ this.handleGreeting(); this.handleClicked() }} >Show Greeting</button>;
+          };
+
+          const classes = [];
+
+          if(this.state.people.length <= 2){
+              classes.push("purple")
+          } if(this.state.people.length <= 1){
+              classes.push("attn")
           }
+                  
 
         return(
             <Fragment>
 
-                <h1>It works!</h1>
+                <h1>Let's say hello</h1>
+                <p className={classes.join(" ")}>Don't leave them hanging!</p>
                 {button}
                 {people}
             </Fragment>
@@ -82,7 +95,7 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default Radium(App);
 
     //the way to set up to use hooks replace class app extends...
 
