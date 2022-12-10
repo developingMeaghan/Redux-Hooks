@@ -48,7 +48,7 @@
     "webpack-cli": "^3.3.4"
   },
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "nodemon": "^1.19.1",
     "radium": "^0.25.2",
     "react": "^16.8.6",
